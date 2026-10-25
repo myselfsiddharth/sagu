@@ -1,0 +1,137 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Sagu launch video</title>
+<style>
+:root{--cream:#fff8ec;--ink:#1f2a1c;--muted:#5d6b57;--green:#2f7a4b;--green-d:#1f5535;--sand:#f3e4c4;--clay:#e0693f;--bubble:#ececf0;--blue:#2b86f6}
+*{box-sizing:border-box}html,body{margin:0;background:#000}
+#stage{position:relative;width:1280px;height:720px;overflow:hidden;font-family:ui-rounded,"Nunito","Avenir Next",system-ui,sans-serif;color:var(--ink);background:var(--cream)}
+.abs{position:absolute}
+#bg2{inset:0;background:var(--green);opacity:0}
+.blob{border-radius:50%;background:var(--sand)}
+#brand{left:48px;top:36px;font-weight:800;font-size:26px;letter-spacing:-.01em}
+#footer{left:0;right:0;bottom:26px;text-align:center;font-size:17px;color:var(--muted);font-weight:600}
+.scene{inset:0;opacity:0}
+h1,h2{margin:0;letter-spacing:-.025em;line-height:1.03}
+.h{left:72px;top:210px;width:560px;font-size:68px;font-weight:800}
+.h em{font-style:normal;color:var(--green)}
+.sub{left:74px;font-size:28px;color:var(--muted);font-weight:600;width:540px}
+#phone{left:700px;top:70px;width:420px;height:580px;background:#fff;border-radius:44px;border:2px solid #e8d9b8;box-shadow:0 30px 60px rgba(70,45,0,.16);overflow:hidden}
+#phoneHead{height:62px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#444;gap:8px}
+#chat{position:absolute;left:0;right:0;top:62px;bottom:0;padding:12px 14px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.row{display:grid;grid-template-rows:0fr}
+.row>div{overflow:hidden;display:flex;flex-direction:column}
+.bub{max-width:82%;padding:10px 15px;border-radius:22px;font-size:19px;line-height:1.3;margin:4px 0;white-space:pre-line;transform-origin:left bottom}
+.them .bub{background:var(--bubble);align-self:flex-start;border-bottom-left-radius:6px}
+.me .bub{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:6px;transform-origin:right bottom}
+.who{font-size:12px;color:#8a8a8a;margin:6px 8px 0;font-weight:600}.me .who{align-self:flex-end}
+.dots{display:inline-flex;gap:5px;padding:4px 2px}.dots i{width:8px;height:8px;border-radius:50%;background:#9a9aa2;display:block}
+.chip{display:flex;align-items:center;gap:16px;background:#fff;border:2px solid #e8d9b8;border-radius:26px;padding:20px 28px;font-size:30px;font-weight:700;width:480px;left:700px;box-shadow:0 14px 30px rgba(70,45,0,.08)}
+.chip span{font-size:38px}
+#end1{left:0;right:0;top:405px;text-align:center;font-size:92px;font-weight:800;color:#fff}
+#end2{left:0;right:0;top:515px;text-align:center;font-size:44px;font-weight:700;color:#fff3d6}
+#end3{left:0;right:0;top:600px;text-align:center;font-size:24px;font-weight:700;color:#cfeedb;letter-spacing:.02em}
+#mascot{left:0;top:0;width:260px;height:300px;transform-origin:130px 280px}
+</style></head><body>
+<div id="stage">
+<div class="abs" id="bg2"></div>
+<div class="abs blob" id="b1" style="width:520px;height:520px;left:-140px;top:-170px;opacity:.55"></div>
+<div class="abs blob" id="b2" style="width:420px;height:420px;right:-120px;bottom:-170px;opacity:.55"></div>
+<div class="abs" id="brand">🌵 Sagu</div>
+
+<div class="abs scene" id="s0"><h1 class="abs h" style="top:250px;font-size:96px">Meet <em>Sagu.</em></h1><div class="abs sub" style="top:380px;font-size:34px">A tiny cactus that lives<br>in your group chat.</div></div>
+<div class="abs scene" id="s1"><h2 class="abs h">Says hi.<br><em>Plays games.</em></h2></div>
+<div class="abs scene" id="s2"><h2 class="abs h" style="font-size:60px">Finds food deals.<br><em>Gets everyone in.</em></h2></div>
+<div class="abs scene" id="s3"><h2 class="abs h">Remembers.<br><em>Brings receipts.</em></h2><div class="abs sub" style="top:372px">Only for friends who ask.</div></div>
+<div class="abs scene" id="s4"><h2 class="abs h" style="top:220px">Runs on <em>your Mac.</em></h2>
+ <div class="abs chip" style="top:130px" id="c0"><span>🍎</span>Your own Apple ID</div>
+ <div class="abs chip" style="top:260px" id="c1"><span>🔒</span>Stays on your Mac</div>
+ <div class="abs chip" style="top:390px" id="c2"><span>🙋</span>Opt-in only</div>
+ <div class="abs chip" style="top:520px" id="c3"><span>⏱️</span>Set up in 5 minutes</div></div>
+<div class="abs" id="phone"><div id="phoneHead">🌵 Weekend Crew</div><div id="chat"></div></div>
+<div class="abs scene" id="s5"><div class="abs" id="end1">Try it now.</div><div class="abs" id="end2">Sagu is waiting for you.</div><div class="abs" id="end3">github.com/myselfsiddharth/sagu</div></div>
+
+<svg id="mascot" class="abs" viewBox="0 0 260 300" width="260" height="300">
+ <ellipse id="shadow" cx="130" cy="284" rx="62" ry="10" fill="#000" opacity=".14"/>
+ <g id="mbody">
+  <g id="armL"><path d="M72 196c-26 0-38-14-38-38v-44c0-10 16-10 16 0v44c0 12 8 20 22 20z" fill="#3b9a5c"/></g>
+  <g id="armR" style="transform-origin:190px 190px"><path d="M188 176c26 0 38-14 38-38V84c0-10-16-10-16 0v54c0 12-8 20-22 20z" fill="#3b9a5c"/></g>
+  <rect x="70" y="50" width="120" height="228" rx="60" fill="#4cb26e"/>
+  <rect x="70" y="50" width="38" height="228" rx="19" fill="#fff" opacity=".12"/>
+  <g stroke="#1f5535" stroke-width="3.5" stroke-linecap="round" opacity=".7"><path d="M80 110l-9-3M80 210l-9 3M180 120l9-3M180 230l9 3M130 70v-8"/></g>
+  <g id="flower"><circle cx="130" cy="42" r="15" fill="#e0693f"/><circle cx="111" cy="52" r="10" fill="#f08a62"/><circle cx="149" cy="52" r="10" fill="#f08a62"/><circle cx="130" cy="42" r="6" fill="#ffd36b"/></g>
+  <g id="eyes"><ellipse id="eL" cx="108" cy="140" rx="9" ry="11" fill="#1f2a1c"/><ellipse id="eR" cx="152" cy="140" rx="9" ry="11" fill="#1f2a1c"/><circle cx="111" cy="136" r="3" fill="#fff"/><circle cx="155" cy="136" r="3" fill="#fff"/></g>
+  <circle cx="92" cy="165" r="9" fill="#ff8a8a" opacity=".55"/><circle cx="168" cy="165" r="9" fill="#ff8a8a" opacity=".55"/>
+  <path id="smile" d="M114 160q16 18 32 0" fill="none" stroke="#1f2a1c" stroke-width="6" stroke-linecap="round"/>
+  <path id="talk" d="M114 158q16 2 32 0q-2 22-16 22t-16-22z" fill="#1f2a1c" opacity="0"/>
+ </g></svg>
+<div class="abs" id="footer">iMessage group chats · runs on your Mac</div>
+</div>
+<script src="timeline.js"></script>
+<script>
+const $=id=>document.getElementById(id), clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}, out=x=>1-Math.pow(1-clamp(x),3);
+const back=x=>{x=clamp(x);const c=1.9;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const prog=(t,a,b)=>clamp((t-a)/(b-a)), lerp=(a,b,k)=>a+(b-a)*k;
+const P='\u{1F335} ';
+// mascot pose per scene: x,y (top-left of the 260x300 box), scale
+const POSE=[{x:830,y:190,s:1.55},{x:150,y:330,s:.62},{x:150,y:330,s:.62},{x:150,y:440,s:.62},{x:170,y:360,s:.85},{x:510,y:60,s:1.15}];
+const CHAT=[null,
+[{t:.5,w:'s',n:'Sagu',x:'Good morning, everyone.',ty:0},{t:1.5,w:'m',n:'Ana',x:'sagu trivia'},{t:2.5,w:'s',n:'Sagu',x:'Trivia: which planet is closest to the sun?\n1. Venus  2. Mercury  3. Mars',ty:1.0},{t:3.9,w:'m',n:'Ben',x:'sagu 2'},{t:4.9,w:'s',n:'Sagu',x:'Ben is right: Mercury. +1 point.',ty:.8}],
+[{t:.4,w:'m',n:'Cy',x:'sagu deal: 2-for-1 tacos till Friday'},{t:1.7,w:'s',n:'Sagu',x:'On it. Who is in? Reply "in".',ty:.9},{t:3.0,w:'m',n:'Ana',x:'in'},{t:3.7,w:'m',n:'Ben',x:'in'},{t:5.0,w:'s',n:'Sagu',x:'That is 2 for tacos. Proposed time: Sunday 6:30pm.',ty:.9}],
+[{t:.8,w:'s',n:'Sagu',x:'Ana, 2 weeks ago: "I\'ll start the 6am gym thing Monday." How did that go?',ty:.9},{t:3.6,w:'m',n:'Ana',x:'ok fair \u{1F605}'},{t:5.1,w:'s',n:'Sagu',x:'Only for friends who say "sagu roast me".',ty:.8}]];
+const rows=[null,[],[],[]];
+for(let i=1;i<=3;i++)CHAT[i].forEach(m=>{const r=document.createElement('div');r.className='row '+(m.w==='s'?'them':'me');
+ r.innerHTML='<div><div class="who"></div><div class="bub"></div></div>';r.querySelector('.who').textContent=m.n;m.el=r;m.bub=r.querySelector('.bub');m.who=r.querySelector('.who');rows[i].push(r);$('chat').appendChild(r)});
+const dotsHTML='<span class="dots"><i></i><i></i><i></i></span>';
+function setScene(i,o){const e=$('s'+i);e.style.opacity=o;e.style.transform='translateY('+((1-o)*18)+'px)'}
+function render(t){
+ const n=T.starts.length;let cur=0;for(let i=0;i<n;i++)if(t>=T.starts[i]-0.25)cur=i;
+ // background to green for the last scene
+ const g=ease(prog(t,T.starts[5]-.6,T.starts[5]+.2));$('bg2').style.opacity=g;
+ $('brand').style.color=g>.5?'#fff':'#1f2a1c';$('footer').style.opacity=1-g;
+ $('b1').style.opacity=lerp(.55,.12,g);$('b2').style.opacity=lerp(.55,.12,g);
+ $('b1').style.transform='translate('+Math.sin(t*.4)*18+'px,'+Math.cos(t*.3)*14+'px)';
+ for(let i=0;i<n;i++){const a=T.starts[i]-.25,b=T.ends[i];const o=i==5?ease(prog(t,a,a+.6)):ease(prog(t,a,a+.55))*(1-ease(prog(t,b-.45,b-.05)));setScene(i,t>=a&&t<=b+.1?o:0)}
+ // phone visible in scenes 1-3
+ const ph=ease(prog(t,T.starts[1]-.4,T.starts[1]+.5))*(1-ease(prog(t,T.starts[4]-.7,T.starts[4]-.2)));
+ $('phone').style.opacity=ph;$('phone').style.transform='translate('+((1-ph)*70)+'px,0) scale('+lerp(.94,1,ph)+')';
+ // chat messages
+ for(let i=1;i<=3;i++){const t0=T.starts[i];CHAT[i].forEach(m=>{
+   const at=t0+m.t, ty=m.ty||0, show=ease(prog(t,at-.02,at+.35));
+   const typing=ty&&t>=at-ty&&t<at;
+   const vis=(t>=at-ty-.02)&&i===cur||(t>=at-ty-.02&&t<T.ends[i]);
+   const act=vis&&(i===cur||t<T.ends[i]);
+   const grow=act?ease(prog(t,at-ty-.02,at-ty+.3)):0;
+   m.el.style.gridTemplateRows=(typing?grow:(ty?1:show)).toFixed(3)+'fr';
+   if(ty&&!typing&&t>=at)m.el.style.gridTemplateRows='1fr';
+   if(typing){m.bub.innerHTML=dotsHTML;m.who.textContent=m.n;m.bub.querySelectorAll('i').forEach((d,k)=>{d.style.transform='translateY('+(-Math.abs(Math.sin(t*7+k*.9))*5)+'px)'})}
+   else{m.bub.textContent=m.w==='s'?P+m.x:m.x}
+   const pop=t>=at?back(prog(t,at,at+.4)):(typing?1:0);
+   m.bub.style.transform='scale('+(act?pop:0)+')';m.bub.style.opacity=act?(typing||t>=at?1:0):0;
+   m.who.style.opacity=act&&(typing||t>=at)?1:0;
+  });
+  // chat clears (fades) when its scene ends
+  rows[i].forEach(r=>{const out=1-ease(prog(t,T.ends[i]-.45,T.ends[i]-.05));r.style.opacity=t>T.starts[i]-.5?(t<T.ends[i]+.1?out:0):0;if(t>=T.ends[i]-.05||t<T.starts[i]-.5)r.style.gridTemplateRows='0fr'});}
+ // chips
+ for(let k=0;k<4;k++){const a=T.starts[4]+.5+k*.55;const p=back(prog(t,a,a+.5));const o=clamp((t-a)/.25)*(1-ease(prog(t,T.ends[4]-.45,T.ends[4]-.05)));const c=$('c'+k);c.style.opacity=t>=T.starts[4]-.25?o:0;c.style.transform='translateX('+((1-p)*80)+'px)'}
+ // mascot pose
+ let pose=POSE[0];for(let i=1;i<n;i++){const k=ease(prog(t,T.starts[i]-.55,T.starts[i]+.45));pose={x:lerp(POSE[i-1].x,POSE[i].x,k),y:lerp(POSE[i-1].y,POSE[i].y,k),s:lerp(POSE[i-1].s,POSE[i].s,k)};if(t<T.starts[i]+.45)break}
+ for(let i=n-1;i>=0;i--){if(t>=T.starts[i]-.55){const prev=i?POSE[i-1]:POSE[0],k=i?ease(prog(t,T.starts[i]-.55,T.starts[i]+.45)):1;pose={x:lerp(prev.x,POSE[i].x,k),y:lerp(prev.y,POSE[i].y,k),s:lerp(prev.s,POSE[i].s,k)};break}}
+ const intro=back(prog(t,0,.9)), jumpEnd=T.starts[5]+.3;
+ const bob=Math.sin(t*2.3)*5, squash=1+Math.sin(t*2.3+1.2)*.015;
+ let hop=0;for(let i=0;i<n;i++){const d=t-T.starts[i];if(d>0&&d<.6)hop=Math.sin(d/.6*Math.PI)*-34}
+ const sc=pose.s*(t<.9?intro:1);
+ $('mascot').style.opacity=clamp(t/.3);
+ $('mascot').style.transform='translate('+pose.x+'px,'+(pose.y+bob+hop)+'px) scale('+sc*(2-squash)+','+sc*squash+') rotate('+(Math.sin(t*1.1)*1.6)+'deg)';
+ $('shadow').setAttribute('rx',62-hop*.25);$('shadow').style.opacity=.14+hop*.002;
+ // wave in the first and last scenes
+ const wave=(t<T.starts[1]-.3||t>T.starts[5])?Math.sin(t*9)*18-14:0;
+ $('armR').style.transform='rotate('+((t<T.starts[1]-.3||t>T.starts[5])?wave:Math.sin(t*2)*3)+'deg)';
+ // blink and talk
+ const ph2=t%3.2, bl=ph2>3.05?Math.abs(ph2-3.125)/.075:1, blink=clamp(bl,.08,1);
+ $('eL').setAttribute('ry',11*blink);$('eR').setAttribute('ry',11*blink);
+ let speaking=false;for(let i=0;i<n;i++)if(t>=T.starts[i]&&t<=T.starts[i]+T.durs[i])speaking=true;
+ const open=speaking?(.5+.5*Math.sin(t*17))*(.6+.4*Math.sin(t*5.3)):0;
+ $('talk').style.opacity=open>.35?1:0;$('smile').style.opacity=open>.35?0:1;
+ $('flower').style.transform='rotate('+Math.sin(t*2.3)*4+'deg)';$('flower').style.transformOrigin='130px 50px';
+}
+window.render=render;render(0);
+</script></body></html>

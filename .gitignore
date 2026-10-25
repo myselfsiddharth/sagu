@@ -5,3 +5,4 @@ __pycache__/
 *.db
 .venv/
 .DS_Store
+video/voice.wav
