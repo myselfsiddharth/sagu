@@ -11,6 +11,7 @@ from typing import Callable, List, Optional
 
 from . import PREFIX
 from .commands import Command, parse, parse_rsvp
+from .games import Games
 from .deals import from_text, names_deadline, pick_slot, poll_feeds
 from .imessage import ME, Message, SendError
 from .quotes import funniness
@@ -27,6 +28,7 @@ HELP = (
     "in / out - answer a deal\n"
     "sagu deals - open deals\n"
     "sagu forget me - delete everything I saved about you\n"
+    "sagu games - things to play\n"
     "Whoever runs me can say: sagu off"
 )
 
@@ -81,6 +83,7 @@ class Sagu:
         self.store, self.reader, self.sender, self.cfg = store, reader, sender, cfg
         self.clock, self.rng, self.llm, self.log = clock, rng or random.Random(), llm, log
         self._last_feed = 0.0
+        self.games = Games(self.rng)
 
     # --- loop -------------------------------------------------------------------------------------------------
     def tick(self) -> int:
@@ -209,6 +212,10 @@ class Sagu:
         elif cmd.name in ("in", "out"):
             if not self.answer_deal(m, cmd.name):
                 self.say(g, plain("No open deal right now. Share one with \"sagu deal: ...\"."))
+        elif cmd.name == "game":
+            reply = self.games.play(g, self.store.name_of(g, h) or "A friend", cmd.arg)
+            if reply:
+                self.say(g, plain(reply))
         elif cmd.name == "unknown" and len(cmd.arg.split()) <= 3:
             self.say(g, plain("Yes? \"sagu help\" lists what I do."))
 

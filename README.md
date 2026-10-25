@@ -5,6 +5,9 @@ A small cactus that lives in your iMessage group chats. It runs on **your Mac**,
 people who asked for it), sometimes with a kind word, shares **food deals**, and rallies people ("in" replies, a
 proposed time, a reminder an hour before). Every line it sends starts with 🌵.
 
+**Website and docs:** open `site/index.html` (landing page with an in-browser simulation) and `site/docs.html`; a
+GitHub Pages workflow publishes `site/` once Pages is enabled (Settings > Pages > Source: GitHub Actions).
+
 Built for the Cubbie Hackathon (DevHacks 2026), Track 3. Python 3.9+, standard library only.
 
 ## How it works
@@ -49,6 +52,13 @@ Built for the Cubbie Hackathon (DevHacks 2026), Track 3. Python 3.9+, standard l
    `sagu deal: 2-for-1 tacos till Friday`, `in` / `out`, `sagu deals`, `sagu forget me`. Host only: `sagu off`,
    `sagu forget this chat`.
 
+### Games
+
+`sagu games` lists them: `sagu trivia` (answer `sagu 1/2/3`), `sagu guess` (`sagu 25`), `sagu hangman`
+(`sagu letter e`), `sagu wyr` (`sagu a` / `sagu b`), `sagu 8ball <q>`, `sagu pick x, y, z`, `sagu flip`, `sagu dice [2d20]`,
+`sagu scores`, `sagu stop`. All text is a fixed curated bank (no model output) and games live in memory, so a restart
+clears them.
+
 Other commands: `python3 -m sagu demo` (labeled simulation: made-up friends, throwaway database, nothing sent) and
 `python3 -m sagu reset` (delete everything Sagu remembers).
 
@@ -61,14 +71,15 @@ then the quote and the person's first name are sent to write the line. Tunables 
 
 ## How it was tested
 
-`python3 -m unittest discover -s tests -t .` runs 65 tests (decoder, reader, store, hard-line filter, voice
-fallback, deals, commands, and full bot flows) against `FakeMessages` fixtures that write a fake `chat.db` with made-up
+`python3 -m unittest discover -s tests -t .` runs 74 tests (decoder, reader, store, hard-line filter, voice
+fallback, deals, commands, games, and full bot flows) against `FakeMessages` fixtures that write a fake `chat.db` with made-up
 people. Tests never send to real chats or read real messages. CI runs them on Python 3.9 and 3.12.
 
 ## Known limitations (honest list)
 
-- **The AppleScript send path and the real `chat.db` reader have not been run against real group chats yet.** They
-  are tested with fakes only. The `attributedBody` decoder's shape was checked by counts on a real database, not by
+- **Real-chat testing is partial.** On the author's Mac, `doctor` passed and `run --dry-run` read a real group chat
+  (texted from a phone) and activated on `sagu on`. The live AppleScript *send* path is still only tested with fakes.
+  The games run on in-memory state; the website demo is a browser simulation, not the bot. The `attributedBody` decoder's shape was checked by counts on a real database, not by
   reading message content.
 - macOS only; needs Messages signed in on the host Mac, and that Mac awake and running Sagu.
 - Polling, not push: replies can lag by a few seconds.

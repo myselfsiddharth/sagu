@@ -5,6 +5,8 @@ import re
 from dataclasses import dataclass
 from typing import Optional
 
+from .games import GAME_WORDS
+
 _PREFIX = re.compile(r"^\s*sagu\b[\s,:!.-]*(.*)$", re.I | re.S)
 _NAME = re.compile(r"^(?:i'?m|im|i am|call me|my name is|name)\s+([A-Za-z][A-Za-z' -]{0,18})\s*$", re.I)
 _IN = re.compile(r"^\s*(?:i'?m in|im in|in|count me in|i'?m down|im down|down)\s*[!.]*\s*$", re.I)
@@ -50,6 +52,8 @@ def parse(text: str) -> Optional[Command]:
     deal = re.match(r"^deal\s*[:\-]?\s*(.+)$", rest, re.I | re.S)
     if deal:
         return Command("deal", deal.group(1).strip())
+    if low.split(" ")[0].rstrip("?!.,:") in GAME_WORDS or re.fullmatch(r"\d{1,3}", low):
+        return Command("game", rest)
     return Command("unknown", rest)
 
 

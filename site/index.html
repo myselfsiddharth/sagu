@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sagu - the cactus in your group chat</title>
+<meta name="description" content="Sagu is a small cactus that lives in your iMessage group chats. It runs on your Mac, plays games, shares food deals, and quotes friends who asked for it.">
+<link rel="icon" href="favicon.svg"><link rel="stylesheet" href="style.css"></head>
+<body><div class="wrap">
+<nav><a class="logo" href="./">🌵 Sagu</a><div><a class="l" href="#features">Features</a><a class="l" href="#games">Games</a><a class="l" href="#privacy">Privacy</a><a class="l" href="docs.html">Docs</a><a class="l" href="https://github.com/myselfsiddharth/sagu">GitHub</a></div></nav>
+<header class="hero"><div>
+<h1>A tiny cactus for your <em>group chat</em>.</h1>
+<p class="lead">Sagu lives in your iMessage groups. It plays games, shares food deals and gets everyone to say "in", and now and then reminds a friend what they said. Only the friends who asked for it.</p>
+<a class="btn" href="docs.html#install">Set it up in 5 minutes</a><a class="btn alt" href="#try">Try it in your browser</a>
+<p class="note" style="text-align:left">Runs on your Mac with your own Apple ID. Nothing leaves your computer by default.</p></div>
+<div class="phone" id="try"><h4>Group chat: Weekend Crew (browser simulation)</h4>
+<div class="chat" id="chat"></div>
+<div class="chips"><button data-say="sagu trivia">trivia</button><button data-say="sagu guess">guess</button><button data-say="sagu hangman">hangman</button><button data-say="sagu wyr">would you rather</button><button data-say="sagu 8ball will we win?">8ball</button><button data-say="sagu pick pizza, tacos, sushi">pick</button><button data-say="sagu deal: 2-for-1 tacos till Friday">deal</button><button data-say="sagu help">help</button></div>
+<form class="send" id="send"><input id="msg" placeholder="Try: sagu flip" autocomplete="off" aria-label="message"><button>Send</button></form>
+<p class="note">A simulation in your browser so you can see the vibe. The real Sagu is the Python program on your Mac.</p></div></header>
+
+<section id="features"><h2>What Sagu does</h2><p class="sub">Small, quick, and a little bit pushy.</p>
+<div class="grid">
+<div class="card"><div class="emoji">🧾</div><h3>Receipts</h3><p>Say "sagu roast me" and Sagu may quote something you said in that chat, like a gym plan that never happened. Never anyone who didn't opt in.</p></div>
+<div class="card"><div class="emoji">🌮</div><h3>Food deals</h3><p>Share a deal, Sagu counts the "in" replies, proposes a time, and reminds everyone an hour before.</p></div>
+<div class="card"><div class="emoji">🎲</div><h3>Games</h3><p>Trivia, number guessing, hangman, would-you-rather, 8-ball and more, with a scoreboard.</p></div>
+<div class="card"><div class="emoji">🤫</div><h3>Quiet by default</h3><p>Silent and storing nothing in a chat until the host texts "sagu on". Quiet hours and a daily cap after that.</p></div>
+</div></section>
+
+<section id="games"><div class="band"><h2>Games to play with Sagu</h2><p class="sub">Text these in any chat where Sagu is on. Everyone can play.</p>
+<table><tr><th>Say</th><th>What happens</th></tr>
+<tr><td><code>sagu trivia</code></td><td>A quick question. Answer with <code>sagu 1</code>, <code>2</code> or <code>3</code>. One try each.</td></tr>
+<tr><td><code>sagu guess</code></td><td>A number from 1 to 50. Guess with <code>sagu 25</code>. Sagu says too high or too low.</td></tr>
+<tr><td><code>sagu hangman</code></td><td>Guess letters with <code>sagu letter e</code>. Six misses and the cactus wilts.</td></tr>
+<tr><td><code>sagu wyr</code></td><td>Would you rather. Vote <code>sagu a</code> or <code>sagu b</code>.</td></tr>
+<tr><td><code>sagu 8ball will we win?</code></td><td>The oracle speaks.</td></tr>
+<tr><td><code>sagu pick pizza, tacos, sushi</code></td><td>Settles the "where should we eat" debate.</td></tr>
+<tr><td><code>sagu flip</code> / <code>sagu dice</code> / <code>sagu dice 2d20</code></td><td>Coin and dice.</td></tr>
+<tr><td><code>sagu scores</code></td><td>Points so far in this chat.</td></tr></table></div></section>
+
+<section id="how"><h2>How it works</h2><p class="sub">No server, no account, no app. Just your Mac.</p>
+<ol class="steps"><li><b>Reads</b> your Messages database on your Mac (read-only), only for chats where you said "sagu on".</li>
+<li><b>Thinks</b> locally: picks a receipt, counts "in" replies, runs the game, checks every line against its hard-line filter.</li>
+<li><b>Sends</b> through the Messages app using your own Apple ID. Every line starts with 🌵.</li></ol></section>
+
+<section id="privacy"><h2>Privacy and hard lines</h2><p class="sub">Built so it is hard to be creepy.</p>
+<div class="grid">
+<div class="card"><h3>Opt-in only</h3><p>Only people who text "sagu roast me" are ever quoted. "sagu spare me" ends it and deletes what Sagu saved. "sagu forget me" deletes everything.</p></div>
+<div class="card"><h3>Stays on your Mac</h3><p>Data lives in <code>~/.config/sagu</code>. Nothing is sent to any service unless you turn on the optional AI lines yourself.</p></div>
+<div class="card"><h3>Roast the excuse, not the person</h3><p>A filter blocks jokes about bodies, weight, looks, race, religion, gender, sexuality, disability, mental health, family or money. No slurs, threats or sexual content.</p></div>
+</div></section>
+
+<section><div class="band" style="text-align:center"><h2>Give your group chat a cactus</h2><p class="sub">Free, open source, MIT licensed. Needs a Mac and Python 3.9+.</p><a class="btn" href="docs.html#install">Read the docs</a><a class="btn alt" href="https://github.com/myselfsiddharth/sagu">View on GitHub</a></div></section>
+<footer>Built at the Cubbie Hackathon (DevHacks 2026). Sagu is not affiliated with Apple. iMessage is a trademark of Apple Inc.</footer>
+</div><script src="chat.js"></script></body></html>
