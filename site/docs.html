@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sagu docs</title><meta name="description" content="Install and use Sagu: setup, commands, games, deals, privacy and troubleshooting.">
+<link rel="icon" href="favicon.svg"><link rel="stylesheet" href="style.css"></head>
+<body><div class="wrap">
+<nav><a class="logo" href="./">🌵 Sagu</a><div><a class="l" href="./">Home</a><a class="l" href="https://github.com/myselfsiddharth/sagu">GitHub</a></div></nav>
+<div class="docs"><aside class="toc"><a href="#install">Install</a><a href="#start">Start in a chat</a><a href="#commands">Commands</a><a href="#games">Games</a><a href="#deals">Deals</a><a href="#config">Config</a><a href="#privacy">Privacy</a><a href="#trouble">Troubleshooting</a></aside>
+<main>
+<h2 id="install">Install</h2>
+<p>You need a Mac signed in to Messages with your Apple ID, and Python 3.9 or newer (<code>python3 --version</code>). Sagu uses only the standard library, so there is nothing to <code>pip install</code>.</p>
+<pre>git clone https://github.com/myselfsiddharth/sagu.git
+cd sagu
+python3 -m sagu doctor</pre>
+<p><code>doctor</code> checks two permissions and tells you how to fix each:</p>
+<ul><li><b>Full Disk Access</b> for your terminal app (System Settings > Privacy &amp; Security), so Sagu can read the Messages database.</li>
+<li><b>Automation</b>: allow your terminal to control Messages, so Sagu can send.</li></ul>
+<p>Try it without sending anything:</p>
+<pre>python3 -m sagu run --dry-run</pre>
+<p>Replies are printed as <code>DRY RUN -&gt; ...</code>. When you are happy, drop <code>--dry-run</code>. Leave it running in a terminal; the Mac must stay awake.</p>
+<div class="warn"><b>Start with a test group.</b> Sagu sends real messages once it is live. Make a group with one or two friends first.</div>
+
+<h2 id="start">Start in a chat</h2>
+<p>Sagu does nothing in a chat until <b>you</b>, the person whose Mac it runs on, text <code>sagu on</code> there. Texting from your phone works, as long as the message reaches your Mac. To switch it off: <code>sagu off</code>. To also delete everything it knows about the chat: <code>sagu forget this chat</code>.</p>
+
+<h2 id="commands">Commands</h2>
+<p>Everything starts with "sagu".</p>
+<table><tr><th>Say</th><th>Who</th><th>What</th></tr>
+<tr><td><code>sagu help</code></td><td>anyone</td><td>Short command list.</td></tr>
+<tr><td><code>sagu i'm Alex</code></td><td>anyone</td><td>Tell Sagu your name. It never quotes someone it has no name for.</td></tr>
+<tr><td><code>sagu roast me</code></td><td>anyone</td><td>Opt in to being quoted in this chat. Sagu looks back through your own old messages here.</td></tr>
+<tr><td><code>sagu spare me</code></td><td>anyone</td><td>Opt out and delete your saved quotes.</td></tr>
+<tr><td><code>sagu forget me</code></td><td>anyone</td><td>Delete everything saved about you.</td></tr>
+<tr><td><code>sagu deal: ...</code>, <code>sagu deals</code>, <code>in</code>, <code>out</code></td><td>anyone</td><td>See Deals.</td></tr>
+<tr><td><code>sagu games</code></td><td>anyone</td><td>List the games.</td></tr>
+<tr><td><code>sagu on</code>, <code>sagu off</code>, <code>sagu forget this chat</code></td><td>host only</td><td>Turn Sagu on or off in this chat.</td></tr></table>
+
+<h2 id="games">Games</h2>
+<p>One game runs per chat at a time; starting a new one replaces it. Games live in memory, so a restart clears them and the scoreboard.</p>
+<table><tr><th>Game</th><th>How</th></tr>
+<tr><td>Trivia</td><td><code>sagu trivia</code>, then <code>sagu 1</code>, <code>sagu 2</code> or <code>sagu 3</code>. One try each. Winner gets 1 point.</td></tr>
+<tr><td>Guess the number</td><td><code>sagu guess</code>, then <code>sagu 25</code>. 12 tries. Winner gets 1 point.</td></tr>
+<tr><td>Hangman</td><td><code>sagu hangman</code>, then <code>sagu letter e</code>. 6 misses. Whoever finishes the word gets 2 points.</td></tr>
+<tr><td>Would you rather</td><td><code>sagu wyr</code>, then <code>sagu a</code> or <code>sagu b</code>. Sagu keeps a running tally.</td></tr>
+<tr><td>8-ball</td><td><code>sagu 8ball will it rain?</code></td></tr>
+<tr><td>Picker</td><td><code>sagu pick pizza, tacos or sushi</code></td></tr>
+<tr><td>Coin and dice</td><td><code>sagu flip</code>, <code>sagu dice</code>, <code>sagu dice 2d20</code></td></tr>
+<tr><td>Scores and stop</td><td><code>sagu scores</code>, <code>sagu stop</code></td></tr></table>
+<p>Set your name with <code>sagu i'm Alex</code> so scores show a real name.</p>
+
+<h2 id="deals">Deals and rallying</h2>
+<p>Someone texts <code>sagu deal: 2-for-1 tacos at Taco Loco till Friday</code>. Sagu announces it and asks who is in. Replies of <code>in</code>, <code>i'm in</code> or <code>down</code> count; <code>out</code> removes you. When enough people are in, Sagu proposes a time and sends a reminder an hour before. It does not book anything anywhere; it just nudges people. You can also add RSS or Atom feeds of local deals with <code>feeds</code> in the config.</p>
+
+<h2 id="config">Config</h2>
+<p>Optional file <code>~/.config/sagu/config.json</code> (override the folder with <code>SAGU_HOME</code>):</p>
+<pre>{
+  "owner_name": "Sid",
+  "prob": 0.25,
+  "quiet_start": 23,
+  "quiet_end": 9,
+  "min_gap": 5400,
+  "max_per_day": 4,
+  "feeds": [],
+  "llm": false
+}</pre>
+<p><code>prob</code> is the chance a live message triggers a jump-in. Quiet hours are local time. Other commands: <code>python3 -m sagu groups</code> lists your group chats, <code>python3 -m sagu demo</code> plays a labeled simulation, <code>python3 -m sagu reset</code> deletes everything Sagu remembers.</p>
+
+<h2 id="privacy">Privacy and hard lines</h2>
+<ul><li>The Messages database is opened read-only. Sagu stores nothing in a chat until you say <code>sagu on</code>.</li>
+<li>Only people who said <code>sagu roast me</code> are quoted.</li>
+<li>Everything stays in <code>~/.config/sagu</code>. Nothing leaves your Mac unless you set <code>"llm": true</code> and export <code>ANTHROPIC_API_KEY</code>. Then the quote and the person's first name are sent to write the line. Model text is validated, retried once, then replaced by the curated lines.</li>
+<li>A filter on everything stored and sent blocks jokes about bodies, weight, looks, eating, race, religion, gender, sexuality, disability, mental health, family or money, plus slurs, threats and sexual content.</li></ul>
+
+<h2 id="trouble">Troubleshooting</h2>
+<table><tr><th>Problem</th><th>Try</th></tr>
+<tr><td>Nothing happens after <code>sagu on</code></td><td>Check the message appears in Messages on the Mac (same Apple ID on phone and Mac; for green-bubble groups enable Text Message Forwarding). Make sure it is a group chat, not one person. Restart Sagu, wait for the "listening" line, and send again.</td></tr>
+<tr><td><code>doctor</code> cannot read the database</td><td>Add your terminal app under Full Disk Access, then fully quit and reopen it.</td></tr>
+<tr><td><code>doctor</code> cannot control Messages</td><td>Allow your terminal under Privacy &amp; Security > Automation.</td></tr>
+<tr><td>Sagu is silent in a chat</td><td>Only the host can turn it on. Quiet hours also hold back unprompted jump-ins (not replies to commands).</td></tr>
+<tr><td>Lines stop after a restart</td><td>Chats stay on, but games and scores reset.</td></tr></table>
+<p>Known limits: macOS only, the Mac must be awake, replies can lag a few seconds, and it works by polling.</p>
+</main></div>
+<footer>Sagu is MIT licensed. Built at the Cubbie Hackathon (DevHacks 2026).</footer></div></body></html>
