@@ -6,3 +6,5 @@ __pycache__/
 .venv/
 .DS_Store
 video/voice.wav
+video/music.wav
+video/mix.wav
