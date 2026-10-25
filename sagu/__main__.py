@@ -53,12 +53,13 @@ def cmd_run(args) -> int:
     cfg = Config.load(home)
     store = Store(os.path.join(home, "sagu.db"))
     reader = Reader(args.db)
-    sender = DrySender() if args.dry_run else OsaSender()
     if args.dry_run:
         class Printing(DrySender):
             def send(self, chat, text):
                 print("DRY RUN ->", chat, "|", text, flush=True)
         sender = Printing()
+    else:
+        sender = OsaSender()
     llm = llm_from_env(cfg.llm)
     bot = Sagu(store, reader, sender, cfg, llm=llm, log=_log)
     _log("Sagu is listening%s. Text \"sagu on\" in a group chat. Ctrl-C to stop." % (" (dry run)" if args.dry_run else ""))
