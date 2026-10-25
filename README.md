@@ -51,6 +51,14 @@ Built for the Cubbie Hackathon (DevHacks 2026), Track 3. Python 3.9+, standard l
    `sagu deal: 2-for-1 tacos till Friday`, `in` / `out`, `sagu deals`, `sagu forget me`. Host only: `sagu off`,
    `sagu forget this chat`.
 
+### Speaks up on its own
+
+Sagu is not only reactive. In a chat where it is on, it says good morning/afternoon/evening about once a day and drops a
+random friendly comment now and then (roughly every 3 hours per chat, on average), even when nobody is talking. It stays
+within quiet hours (23:00 to 09:00), the minimum gap and the daily cap, never posts twice in a row into a chat that has
+not answered, and every line is a curated bank line run through the hard-line filter. Turn it off with
+`"chatty": false`; tune with `spont_every` (seconds).
+
 ### Games
 
 `sagu games` lists them: `sagu trivia` (answer `sagu 1/2/3`), `sagu guess` (`sagu 25`), `sagu hangman`
@@ -70,7 +78,7 @@ then the quote and the person's first name are sent to write the line. Tunables 
 
 ## How it was tested
 
-`python3 -m unittest discover -s tests -t .` runs 74 tests (decoder, reader, store, hard-line filter, voice
+`python3 -m unittest discover -s tests -t .` runs 79 tests (decoder, reader, store, hard-line filter, voice
 fallback, deals, commands, games, and full bot flows) against `FakeMessages` fixtures that write a fake `chat.db` with made-up
 people. Tests never send to real chats or read real messages. CI runs them on Python 3.9 and 3.12.
 

@@ -19,7 +19,7 @@ class World:
         self.store = Store(":memory:")
         self.sender = DrySender()
         self.now = NOON
-        self.cfg = cfg or Config(owner_name="Dev", prob=1.0, min_gap=0, min_quote_age=DAY)
+        self.cfg = cfg or Config(owner_name="Dev", prob=1.0, min_gap=0, min_quote_age=DAY, chatty=False)
         self.history = []
         self.bot = Sagu(self.store, Reader(self.fake.path), self.sender, self.cfg, clock=lambda: self.now, rng=random.Random(seed), llm=llm)
         self.store.set_cursor(0)
