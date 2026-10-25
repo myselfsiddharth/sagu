@@ -59,10 +59,12 @@ python3 -m sagu doctor</pre>
   "quiet_end": 9,
   "min_gap": 5400,
   "max_per_day": 4,
+  "chatty": true,
+  "spont_every": 10800,
   "feeds": [],
   "llm": false
 }</pre>
-<p><code>prob</code> is the chance a live message triggers a jump-in. Quiet hours are local time. Other commands: <code>python3 -m sagu groups</code> lists your group chats, <code>python3 -m sagu demo</code> plays a labeled simulation, <code>python3 -m sagu reset</code> deletes everything Sagu remembers.</p>
+<p><code>chatty</code> lets Sagu speak up on its own: a greeting about once a day and a friendly comment roughly every <code>spont_every</code> seconds per chat (on average), only outside quiet hours, within the daily cap, and never twice in a row into a silent chat. Set it to <code>false</code> for a Sagu that only answers. <code>prob</code> is the chance a live message triggers a jump-in. Quiet hours are local time. Other commands: <code>python3 -m sagu groups</code> lists your group chats, <code>python3 -m sagu demo</code> plays a labeled simulation, <code>python3 -m sagu reset</code> deletes everything Sagu remembers.</p>
 
 <h2 id="privacy">Privacy and hard lines</h2>
 <ul><li>The Messages database is opened read-only. Sagu stores nothing in a chat until you say <code>sagu on</code>.</li>

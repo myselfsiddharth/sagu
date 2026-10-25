@@ -86,7 +86,7 @@ class PacingTests(unittest.TestCase):
     def chatty(self, **cfg):
         base = dict(owner_name="Dev", prob=1.0, min_gap=90 * 60, min_quote_age=DAY, quiet_start=23, quiet_end=9)
         base.update(cfg)
-        w = World(Config(**base))
+        w = World(Config(chatty=False, **base))
         w.past(ANA, "I'll start the 6am gym thing on Monday, for real this time", 20)
         w.past(ANA, "okay LISTEN I am going to sleep before midnight tonight", 12)
         w.past(ANA, "I swear I'm going to finish the lab report tomorrow", 9)
@@ -144,7 +144,7 @@ class PacingTests(unittest.TestCase):
             self.assertEqual(w.say(BEN, "chatter %d" % i, dt=3 * 3600), [])
 
     def test_a_quote_is_not_reused_inside_two_weeks_and_too_fresh_quotes_wait(self):
-        w = World(Config(owner_name="Dev", prob=1.0, min_gap=0, min_quote_age=2 * DAY))
+        w = World(Config(chatty=False, owner_name="Dev", prob=1.0, min_gap=0, min_quote_age=2 * DAY))
         w.past(ANA, "I'll start the 6am gym thing on Monday, for real this time", 20)
         w.past(ANA, "I swear I'm going to finish the lab report tomorrow", 0.5)  # too fresh
         w.start()
@@ -183,7 +183,7 @@ class DealTests(unittest.TestCase):
         self.assertEqual(len(w.sender.sent), before + 1)  # only once
 
     def test_bare_in_with_no_open_deal_is_just_chatter(self):
-        w = World(Config(owner_name="Dev", prob=0.0)).start()
+        w = World(Config(chatty=False, owner_name="Dev", prob=0.0)).start()
         self.assertEqual(w.say(ANA, "in"), [])
         self.assertEqual(w.store.db.execute("SELECT COUNT(*) FROM rsvps").fetchone()[0], 0)
 
@@ -205,7 +205,7 @@ class DealTests(unittest.TestCase):
         self.assertIn("half off wings", w.say(CY, "sagu deals")[0])
 
     def test_feed_deals_are_announced_once_when_the_chat_is_live(self):
-        w = World(Config(owner_name="Dev", prob=0.0, min_gap=0, feeds=["https://feeds.example/food.xml"], feed_every=0)).start()
+        w = World(Config(chatty=False, owner_name="Dev", prob=0.0, min_gap=0, feeds=["https://feeds.example/food.xml"], feed_every=0)).start()
         import sagu.bot as botmod
         from sagu.deals import Found
         original = botmod.poll_feeds
@@ -238,7 +238,7 @@ class RobustnessTests(unittest.TestCase):
                 raise SendError("Messages is not running")
         w.bot.sender = Broken()
         w.say(CY, "sagu deal: 2-for-1 tacos at Taco Loco till Friday")
-        self.assertEqual(w.store.db.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 0)
+        self.assertEqual(w.store.db.execute("SELECT COUNT(*) FROM posts WHERE kind != 'intro'").fetchone()[0], 0)
 
     def test_unknown_commands_only_get_a_nudge_when_short(self):
         w = World().start()

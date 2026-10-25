@@ -50,6 +50,38 @@ PRAISE_BUSY = [
     "{name} has been carrying this chat today. Somebody get {name} a snack and a round of applause.",
     "Shoutout to {name} for keeping the conversation alive today. Photosynthesis could never.",
 ]
+GREET_MORNING = [
+    "Good morning, everyone. Cactus is up, sun is out, water is optional.",
+    "Morning, humans. I have been standing here since sunrise. Anything good planned today?",
+    "Rise and shine, group chat. I'd stretch but I only have the one shape.",
+    "Morning! Tell me one thing you're looking forward to today.",
+]
+GREET_AFTERNOON = [
+    "Afternoon, everyone. How is the day treating you?",
+    "Hi hi. Just your friendly cactus checking in. Anyone doing something fun today?",
+    "Hello from the windowsill. Hope the day is going well.",
+]
+GREET_EVENING = [
+    "Evening, everyone. How did the day go?",
+    "Good evening, group chat. Tell me the best part of your day. I'll go first: sunlight.",
+    "Hey you lot. Winding down? Anyone up to anything tonight?",
+]
+CHIME = [
+    "I have no point to make. Just wanted to say hi.",
+    "Random thought: Tuesday is just Monday with better branding.",
+    "Is it just me or is this chat the best one I'm in? I'm only in this one, but still.",
+    "Unrelated, but today feels like a good day for a walk. Just saying.",
+    "Opinion: the best plans start with someone saying 'we should do something'. So, someone say it.",
+    "Anyone else feel like it's been a while since we all did something together? Asking for a cactus.",
+    "Fun fact: I can go weeks without water. I would not recommend it for you. Hydrate.",
+    "I was just sitting here thinking about how good it feels to be included. Thanks for having me.",
+    "Rate your day out of ten. I'll start: a solid seven. Lots of light.",
+    "Do you ever just stare out the window like a very still cactus? Highly recommend.",
+    "Quick poll: morning person or night owl? I am a sunrise cactus, personally.",
+    "No agenda. Just good vibes, delivered by a small plant.",
+    "Mini challenge: send the group a photo of something nice you saw today.",
+    "Somebody say something funny. I have been quiet for too long and my spines are bored.",
+]
 DEAL = [
     "yo check this out: {title}{ends}. Who is in? Reply \"in\" and I will find a time.{link}",
     "see what I found: {title}{ends}. This is basically a sign. Reply \"in\" if you are going.{link}",
@@ -165,7 +197,8 @@ def compose(kind: str, rng: random.Random, llm: Optional[Llm] = None, **facts: s
     """One line for a moment, cactus first. `facts` holds name/quote/ago/title/ends/link as the kind needs."""
     bank = {
         "callback": CALLBACK, "excuse": EXCUSE, "praise_quote": PRAISE_QUOTE, "praise": PRAISE,
-        "praise_busy": PRAISE_BUSY, "deal": DEAL, "saved": SAVED, "going": GOING, "remind": REMIND,
+        "praise_busy": PRAISE_BUSY, "greet_morning": GREET_MORNING, "greet_afternoon": GREET_AFTERNOON,
+        "greet_evening": GREET_EVENING, "chime": CHIME, "deal": DEAL, "saved": SAVED, "going": GOING, "remind": REMIND,
     }[kind]
     if "quote" in facts:
         facts["quote"] = tidy_quote(facts["quote"])

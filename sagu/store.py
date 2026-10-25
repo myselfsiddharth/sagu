@@ -191,11 +191,19 @@ class Store:
         self.db.commit()
 
     def last_post_ts(self, guid: str) -> float:
+        row = self.db.execute("SELECT MAX(ts) FROM posts WHERE guid=? AND kind != 'intro'", (guid,)).fetchone()
+        return float(row[0]) if row and row[0] else 0.0
+
+    def last_line_ts(self, guid: str) -> float:
+        """Like last_post_ts, but the intro counts too."""
         row = self.db.execute("SELECT MAX(ts) FROM posts WHERE guid=?", (guid,)).fetchone()
         return float(row[0]) if row and row[0] else 0.0
 
     def posts_since(self, guid: str, since: float) -> int:
-        return int(self.db.execute("SELECT COUNT(*) FROM posts WHERE guid=? AND ts>=?", (guid, since)).fetchone()[0])
+        return int(self.db.execute("SELECT COUNT(*) FROM posts WHERE guid=? AND ts>=? AND kind != 'intro'", (guid, since)).fetchone()[0])
+
+    def posts_of_kind_since(self, guid: str, prefix: str, since: float) -> int:
+        return int(self.db.execute("SELECT COUNT(*) FROM posts WHERE guid=? AND ts>=? AND kind LIKE ?", (guid, since, prefix + "%")).fetchone()[0])
 
     # deals
     _DEAL = "id, guid, title, link, ends_ts, source, created_ts, announced_ts, plan_ts, remind_ts, reminded"

@@ -48,6 +48,9 @@ class Config:
     reuse_gap: float = 14 * DAY
     backfill_days: int = 90
     feed_every: float = 30 * 60
+    chatty: bool = True  # also speak up unprompted: greetings and random comments, even when nobody is talking
+    spont_every: float = 3 * 3600  # on average, one unprompted line per chat this often (inside the usual limits)
+    spont_check: float = 60.0
 
     @staticmethod
     def load(home: str) -> "Config":
@@ -84,6 +87,7 @@ class Sagu:
         self.clock, self.rng, self.llm, self.log = clock, rng or random.Random(), llm, log
         self._last_feed = 0.0
         self.games = Games(self.rng)
+        self._last_spont = 0.0
 
     # --- loop -------------------------------------------------------------------------------------------------
     def tick(self) -> int:
@@ -99,6 +103,7 @@ class Sagu:
             self.store.set_cursor(max(m.rowid for m in msgs))
         self.poll_feeds()
         self.send_reminders()
+        self.spontaneous()
         return len(msgs)
 
     # --- sending ----------------------------------------------------------------------------------------------
@@ -169,10 +174,11 @@ class Sagu:
             m.chat,
             plain(
                 "Sagu here. I'm a small cactus running on %s's Mac. I watch this chat for good moments, share food deals, "
-                "and sometimes cheer or tease. I only quote people who say \"sagu roast me\". Tell me your name with "
+                "say hi now and then, and sometimes cheer or tease. I only quote people who say \"sagu roast me\". Tell me your name with "
                 "\"sagu i'm Alex\". \"sagu help\" for the rest. %s" % (who, privacy)
             ),
         )
+        self.store.add_post(m.chat, self.clock(), "intro")  # counts as my last line, so no greeting piles onto it
 
     def command(self, m: Message, cmd: Command) -> None:
         g, h = m.chat, m.handle
@@ -293,7 +299,7 @@ class Sagu:
         a, b = self.cfg.quiet_start, self.cfg.quiet_end
         return (hour >= a or hour < b) if a > b else (a <= hour < b)
 
-    def may_post(self, guid: str, now: float) -> bool:
+    def may_post(self, guid: str, now: float, need_activity: bool = True) -> bool:
         if self.in_quiet_hours(now):
             return False
         last = self.store.last_post_ts(guid)
@@ -302,7 +308,7 @@ class Sagu:
         midnight = datetime.fromtimestamp(now).replace(hour=0, minute=0, second=0, microsecond=0).timestamp()
         if self.store.posts_since(guid, midnight) >= self.cfg.max_per_day:
             return False
-        return now - self.store.last_msg_ts(guid) <= self.cfg.activity_window
+        return not need_activity or now - self.store.last_msg_ts(guid) <= self.cfg.activity_window
 
     def eligible_quotes(self, guid: str, now: float) -> List[Quote]:
         return [
@@ -323,10 +329,41 @@ class Sagu:
         if self.rng.random() > self.cfg.prob:
             return None
         quotes = self.eligible_quotes(guid, now)
-        kind = self.rng.choices(["callback", "praise"], weights=[3 if quotes else 0, 1])[0]
+        kind = self.rng.choices(["callback", "praise", "chime"], weights=[3 if quotes else 0, 1, 2 if self.cfg.chatty else 0])[0]
         if kind == "callback":
             return self.post_callback(guid, quotes, now)
+        if kind == "chime":
+            return self.post_plain(guid, "chime", now)
         return self.post_praise(guid, now)
+
+    def spontaneous(self) -> None:
+        """Speak up unprompted, like a person in the chat: a greeting once a day, now and then a random comment.
+        Same limits as everything else (quiet hours, gap, daily cap), and never twice in a row into a silent chat."""
+        now = self.clock()
+        if not self.cfg.chatty or now - self._last_spont < self.cfg.spont_check:
+            return
+        self._last_spont = now
+        midnight = datetime.fromtimestamp(now).replace(hour=0, minute=0, second=0, microsecond=0).timestamp()
+        for guid in self.store.active_groups():
+            if not self.may_post(guid, now, need_activity=False):
+                continue
+            last = self.store.last_line_ts(guid)
+            if last and self.store.last_msg_ts(guid) < last:
+                continue  # nobody has answered my last line; no monologues
+            greeted = self.store.posts_of_kind_since(guid, "greet", midnight) > 0
+            chance = self.cfg.spont_check / max(self.cfg.spont_every, 1.0)
+            if self.rng.random() > (chance if greeted else chance * 4):
+                continue
+            hour = datetime.fromtimestamp(now).hour
+            part = "morning" if hour < 12 else ("afternoon" if hour < 17 else "evening")
+            self.post_plain(guid, "chime" if greeted else "greet_" + part, now)
+
+    def post_plain(self, guid: str, kind: str, now: float) -> Optional[str]:
+        line = compose(kind, self.rng)
+        if line and self.say(guid, line):
+            self.store.add_post(guid, now, kind)
+            return kind
+        return None
 
     def post_deal(self, guid: str, deal: Deal, now: float) -> Optional[str]:
         line = compose("deal", self.rng, self.llm, **self._facts(deal.title, deal.ends_ts, deal.link))
