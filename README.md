@@ -5,8 +5,7 @@ A small cactus that lives in your iMessage group chats. It runs on **your Mac**,
 people who asked for it), sometimes with a kind word, shares **food deals**, and rallies people ("in" replies, a
 proposed time, a reminder an hour before). Every line it sends starts with 🌵.
 
-**Website and docs:** open `site/index.html` (landing page with an in-browser simulation) and `site/docs.html`; a
-GitHub Pages workflow publishes `site/` once Pages is enabled (Settings > Pages > Source: GitHub Actions).
+**Website and docs:** open `site/index.html` (landing page with an in-browser simulation) and `site/docs.html`; deploy `site/` as a static site (for example on Vercel with the root directory set to `site`).
 
 Built for the Cubbie Hackathon (DevHacks 2026), Track 3. Python 3.9+, standard library only.
 
@@ -77,10 +76,9 @@ people. Tests never send to real chats or read real messages. CI runs them on Py
 
 ## Known limitations (honest list)
 
-- **Real-chat testing is partial.** On the author's Mac, `doctor` passed and `run --dry-run` read a real group chat
-  (texted from a phone) and activated on `sagu on`. The live AppleScript *send* path is still only tested with fakes.
-  The games run on in-memory state; the website demo is a browser simulation, not the bot. The `attributedBody` decoder's shape was checked by counts on a real database, not by
-  reading message content.
+- **Tested by hand on one Mac only.** On the author's Mac, `doctor` passed, and a real group chat (texted from a phone) activated
+  on `sagu on` and replied live through the AppleScript send path. Other macOS versions and chat types (SMS groups) are untested.
+  The games run on in-memory state; the website demo is a browser simulation, not the bot.
 - macOS only; needs Messages signed in on the host Mac, and that Mac awake and running Sagu.
 - Polling, not push: replies can lag by a few seconds.
 - The "in" count and time proposal are plain chat nudges; Sagu does not book anything anywhere.
